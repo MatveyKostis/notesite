@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.scss">
+</head>
+<body>
+    <header>
+        <button class="signinbutton">sign in</button>
+        <div class="modal hidden">
+            <div class="window_login">
+                <h2>login</h2>
+                <form method="post" class="signin">
+                    <label for="name">name</label>
+                    <input id="name" type="text" name="name">
+                    <label for="password">pass or smthing</label>
+                    <input id="password" type="password" name="password">
+                    <button type="submit">login maybe</button>
+                    <span class="errormessage"></span>
+                </form>
+            </div>
+            <div class="window hidden">
+                <h2>notes</h2>
+                <div class="notes_block">
+
+                </div>
+                <div class="notes_make">
+                    <form method="post" class="note_create">
+                        <label for="topic">topic</label>
+                        <input id="topic" type="text" name="topic">
+                        <label for="texts"><textarea id="texts" name="texts">something somewhat someday somehow
+                        </textarea></label>
+                        <button type="submit">post i guess</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="./main.js" type="module"></script>
+
+    </header>
+</body>
+</html>

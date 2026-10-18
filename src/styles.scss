@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&family=Philosopher:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f3ecd9;
+  color: #2b2118;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.5;
+}
+
+h2, h3 {
+  font-family: 'Philosopher', serif;
+  margin: 0 0 12px;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  border-bottom: 2px solid #2b2118;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 16px;
+  background: #f3ecd9;
+  color: #2b2118;
+  border: 2px solid #2b2118;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #2b2118;
+  transition: transform 0.1s, box-shadow 0.1s;
+
+  &:hover {
+    background: #c8553d;
+    color: #f3ecd9;
+  }
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+}
+
+input, textarea {
+  display: block;
+  width: 100%;
+  margin: 4px 0 14px;
+  padding: 8px 10px;
+  font: inherit;
+  color: #2b2118;
+  background: #fffaf0;
+  border: 2px solid #2b2118;
+  outline: none;
+
+  &:focus {
+    border-color: #c8553d;
+  }
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.errormessage {
+  display: block;
+  margin-top: 8px;
+  color: #c8553d;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(43, 33, 24, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+
+  .window_login,
+  .window {
+    background: #f3ecd9;
+    border: 3px solid #2b2118;
+    box-shadow: 8px 8px 0 #2b2118;
+    padding: 24px;
+  }
+
+  .window_login {
+    width: 40%;
+    min-width: 280px;
+    min-height: 300px;
+  }
+
+  .window {
+    width: 60%;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    .notes_block {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 16px 0 24px;
+
+      > div {
+        padding: 14px;
+        background: #f6dc7a;
+        box-shadow: 3px 3px 0 rgba(43, 33, 24, 0.35);
+        transform: rotate(-1deg);
+
+        h3 {
+          font-size: 18px;
+          border-bottom: 1px dashed #2b2118;
+          padding-bottom: 4px;
+        }
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          white-space: pre-wrap;
+          word-break: break-word;
+        }
+      }
+    }
+
+    .notes_make {
+      border-top: 2px solid #2b2118;
+      padding-top: 16px;
+    }
+  }
+}
