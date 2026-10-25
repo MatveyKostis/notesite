@@ -33,7 +33,7 @@ export class Notescontrol {
     async create(title, text) {
         const id = getId();
 
-        const status = await createNote(title,id , text)
+        const status = await createNote(text ,id , title)
         await this.getNotes()
     }
     erase() {

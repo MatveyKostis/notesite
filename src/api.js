@@ -14,6 +14,9 @@ export const getUserNotes = async(id) => {
 }
 
 export const createNote = async (text, id, topic) => {
-    const data = await axios.post("/note", {text: text, userid: id, topic: topic})
-    return {status: data.data.status, note: data.data.note};
+    try {
+        const data = await axios.post("/note", {text: text, userid: id, topic: topic})
+    } catch (e) {
+        console.log(e)
+    }
 }
