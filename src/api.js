@@ -20,3 +20,25 @@ export const createNote = async (text, id, topic) => {
         console.log(e)
     }
 }
+
+export const deleteNote = async (id, noteId) => {
+    console.log(id, noteId)
+    try {
+        const data = await axios.delete("/note", {data: {id: id, noteId: noteId}})
+        return data.data;
+    } catch (e) {
+        console.log(e)
+        return e;
+    }
+
+}
+
+export const patchNote = async (id, noteId, text, topic) => {
+    try {
+        const data = await axios.patch("/note", {id: id, noteId: noteId, text: text, topic: topic})
+        return data.data;
+    } catch (e) {
+        console.log(e)
+        return e;
+    }
+}
