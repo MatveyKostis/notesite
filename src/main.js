@@ -1,36 +1,18 @@
-import axios from "axios";
-import {use} from "express/lib/application.js";
+import {signInUser} from "./api"
+import {modal, signin, logout, login_window, auth, logedIn, signinButton, create_note} from "./html.js"
+import {getId, onLogin, onLogOut} from "./auth.js"
 
-const modal = document.querySelector(".modal")
-const signinButton = document.querySelector(".signinbutton")
-const login_window = document.querySelector(".window_login")
-const window = document.querySelector(".window");
-const signin = document.querySelector(".signin");
-const notes_make = document.querySelector(".notes_make")
-let user_id;
-const notes_block = document.querySelector(".notes_block")
-const note_creates = document.querySelector(".note_create")
+let notescontrol;
 
-async function load_notes(userId) {
-    try {
-        const notes = axios.get("http://localhost:3000/note?", {params: {user: userId}})
-        console.log(await notes)
-        const note = (await notes).data
-        note.forEach((nots) => {
-            const note_block = document.createElement("div")
-            note_block.innerHTML = `
-            <h3>${nots.topic}</h3>
-            <p>${nots.text}</p>
-            `
-            notes_block.append(note_block)
-        })
-        window.classList.remove("hidden")
-    } catch (e) {
-        console.log(e)
-    }
+
+const data = localStorage.getItem("user")
+if (data) {
+    const login = onLogin(JSON.parse(data))
+    notescontrol = login
 }
 
 signinButton.addEventListener("click", (e) => {
+    console.log(123)
     modal.classList.remove("hidden")
     login_window.classList.remove("hidden")
 })
@@ -47,13 +29,13 @@ signin.addEventListener("submit", async (e) => {
 
     const name = signin.name.value
     const password = signin.password.value
-    try{
-        const user = axios.post("http://localhost:3000/auth", {username: name, password: password})
-        console.log(await user)
-        let users = await user
-        user_id = users.data.id
-        await load_notes(users.data.id)
-        login_window.classList.add("hidden")
+    try {
+        const data = await signInUser(name, password)
+
+        console.log(data)
+        localStorage.setItem("user", JSON.stringify(data))
+        const login = onLogin(data)
+        notescontrol = login
     } catch (e) {
         const errormessage = document.querySelector(".errormessage")
         errormessage.textContent = "something happened"
@@ -62,21 +44,18 @@ signin.addEventListener("submit", async (e) => {
 
 })
 
-note_creates.addEventListener("submit", async (e) => {
+create_note.addEventListener("submit", async (e) => {
     e.preventDefault()
-
-    if (!user_id) {
+    const title = create_note.title.value
+    const text = create_note.text.value
+    const id = getId()
+    if (!id) {
         return
     }
+    await notescontrol.create(title, text)
 
-    const topic = note_creates.topic.value
-    const text = note_creates.texts.value
-    try {
-        const note_create = axios.post("http://localhost:3000/note", {userid: user_id, text: text, topic: topic})
-        console.log((await note_create))
-        notes_block.innerHTML = ""
-        await load_notes(user_id)
-    } catch (e) {
-        console.log(e)
-    }
+})
+
+logout.addEventListener("click", (e) => {
+    onLogOut()
 })
